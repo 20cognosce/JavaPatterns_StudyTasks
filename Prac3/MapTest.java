@@ -2,12 +2,14 @@ package Prac3;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Semaphore;
 
 public class MapTest {
     void run () {
         Map<String, Integer> notThreadSafeHashMap = new HashMap<>();
-        Map<String, Integer> imaginaryThreadSafeHashMap = new ImaginaryThreadSafeMap<>();
+        Map<String, Integer> imaginaryThreadSafeHashMap = new ImaginaryThreadSafeHashMap<>();
+        //ConcurrentHashMap does not work in such condition either
         Map<String, Integer> threadSafeHashMap = new HashMap<>();
         String test = "test";
         Semaphore semaphore = new Semaphore(1);
@@ -72,7 +74,7 @@ public class MapTest {
             System.out.println("got interrupted!");
         }
         System.out.println("Not thread-safe implementation: " + notThreadSafeHashMap.get(test));
-        System.out.println("Imaginary thread-safe implementation: " + notThreadSafeHashMap.get(test));
+        System.out.println("Imaginary thread-safe implementation: " + imaginaryThreadSafeHashMap.get(test));
         System.out.println("Thread-safe implementation:" + threadSafeHashMap.get(test));
     }
 }
